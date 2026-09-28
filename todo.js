@@ -1,7 +1,9 @@
-    const tasks = [];
+
+const tasks = [];
 let nextId = 1;
 
-function addTask(text) {
+// Add a new task
+function addTask(text, priority = "Normal") {
     if (!text.trim()) {
         console.log("Please enter a task.");
         return;
@@ -10,6 +12,7 @@ function addTask(text) {
     const task = {
         id: nextId++,
         text: text,
+        priority: priority,
         completed: false
     };
 
@@ -17,6 +20,7 @@ function addTask(text) {
     console.log(`Task added: ${text}`);
 }
 
+// Complete a task
 function completeTask(id) {
     const task = tasks.find(task => task.id === id);
 
@@ -28,6 +32,7 @@ function completeTask(id) {
     }
 }
 
+// Delete a task
 function deleteTask(id) {
     const index = tasks.findIndex(task => task.id === id);
 
@@ -39,6 +44,7 @@ function deleteTask(id) {
     }
 }
 
+// Show all tasks
 function showTasks() {
     if (tasks.length === 0) {
         console.log("No tasks available.");
@@ -49,14 +55,63 @@ function showTasks() {
 
     tasks.forEach(task => {
         const status = task.completed ? "✓" : " ";
-        console.log(`${task.id}. [${status}] ${task.text}`);
+        console.log(
+            `${task.id}. [${status}] ${task.text} - Priority: ${task.priority}`
+        );
     });
 }
 
-// Example usage
-addTask("Study JavaScript");
-addTask("Finish homework");
-addTask("Go for a walk");
+// Search for a task
+function searchTask(keyword) {
+    const results = tasks.filter(task =>
+        task.text.toLowerCase().includes(keyword.toLowerCase())
+    );
+
+    console.log(`\n--- SEARCH RESULTS: "${keyword}" ---`);
+
+    if (results.length === 0) {
+        console.log("No matching tasks found.");
+        return;
+    }
+
+    results.forEach(task => {
+        const status = task.completed ? "✓" : " ";
+        console.log(
+            `${task.id}. [${status}] ${task.text} - Priority: ${task.priority}`
+        );
+    });
+}
+
+// Clear all completed tasks
+function clearCompleted() {
+    const remainingTasks = tasks.filter(task => !task.completed);
+
+    tasks.length = 0;
+    tasks.push(...remainingTasks);
+
+    console.log("Completed tasks have been cleared.");
+}
+
+// Show task summary
+function showSummary() {
+    const completed = tasks.filter(task => task.completed).length;
+    const pending = tasks.filter(task => !task.completed).length;
+
+    console.log("\n--- TASK SUMMARY ---");
+    console.log(`Total tasks: ${tasks.length}`);
+    console.log(`Completed tasks: ${completed}`);
+    console.log(`Pending tasks: ${pending}`);
+}
+
+
+// ====================
+// EXAMPLE USAGE
+// ====================
+
+addTask("Study JavaScript", "High");
+addTask("Finish homework", "High");
+addTask("Go for a walk", "Low");
+addTask("Read my notes", "Normal");
 
 showTasks();
 
@@ -64,4 +119,13 @@ completeTask(1);
 
 deleteTask(2);
 
+searchTask("JavaScript");
+
+showSummary();
+
+clearCompleted();
+
 showTasks();
+
+showSummary();
+
