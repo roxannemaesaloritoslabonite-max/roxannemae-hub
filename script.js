@@ -164,3 +164,44 @@ for (let i = 0; i < completed.length; i++) {
 console.log("Total tasks:", tasks.length);
 console.log("Completed tasks:", completedCount);
 console.log("Remaining tasks:", tasks.length - completedCount);
+
+console.log("===== MY TO-DO LIST =====");
+
+let tasks = [
+    "Study JavaScript",
+    "Practice coding",
+    "Read notes",
+    "Submit assignment"
+];
+
+let completed = [true, false, false, false];
+
+function showTasks() {
+    console.log("\nTasks:");
+
+    for (let i = 0; i < tasks.length; i++) {
+        if (completed[i]) {
+            console.log((i + 1) + ". " + tasks[i] + " - Completed");
+        } else {
+            console.log((i + 1) + ". " + tasks[i] + " - Not Completed");
+        }
+    }
+}
+
+function showSummary() {
+    let completedCount = 0;
+
+    for (let i = 0; i < completed.length; i++) {
+        if (completed[i]) {
+            completedCount++;
+        }
+    }
+
+    console.log("\n===== SUMMARY =====");
+    console.log("Total tasks:", tasks.length);
+    console.log("Completed:", completedCount);
+    console.log("Remaining:", tasks.length - completedCount);
+}
+
+showTasks();
+showSummary();
