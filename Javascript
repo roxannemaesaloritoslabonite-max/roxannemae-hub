@@ -1,7 +1,5 @@
 console.log("My To-Do List");
 
-console.log("My To-Do List");
-
 let task = "Study JavaScript";
 
 console.log("Task:", task);
